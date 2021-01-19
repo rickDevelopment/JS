@@ -1,3 +1,9 @@
+//get compare button
+let compareButton = document.getElementById('btn')
+
+
+// get form data
+compareButton.addEventListener('click', getFormData)
 
     const dinoObj ={
         "Dinos": [
@@ -88,6 +94,10 @@
         this.where= obj.Dinos[i].where
         this.when= obj.Dinos[i].when
         this.fact= obj.Dinos[i].fact
+
+        function sayName(){
+            console.log(this.species)
+        }
     }
    
    
@@ -107,10 +117,11 @@
 
     // Create Human Object
 
-    function createHuman(obj){
-        this.name = obj.name
-        this.weight =obj.weight
-        this.diet = obj.diet
+    function Human(obj){
+
+        this.name = obj.name.value
+        this.weight =obj.weight.value
+        this.diet = obj.diet.value
         fact: function fact(){
             return(` I am a human and I weigh ${weight} lbs`)
         }
@@ -147,17 +158,11 @@
 
 function getFormData(){
     let formData = document.getElementById('dino-compare')
-    // let human ={
-    //     name: formData.name.value,
-    //     feet: formData.feet.value,
-    //     inches: formData.inches.value,
-    //     weight: formData.weight.value,
-    //     diet:formData.diet.value
-    // }
+    console.log('button was clicked')
+    console.log(formData)
+    let human =  new Human(formData)
     
-    return function(){
-       return formData
-    }
-    
-
+   console.log(human)
+   return human
 }
+
