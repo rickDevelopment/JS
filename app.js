@@ -1,9 +1,35 @@
+
 //get compare button
 let compareButton = document.getElementById('btn')
+let formData;
+let grid = document.getElementById('grid')
+
+const tileData = {};
 
 
 // get form data
-compareButton.addEventListener('click', getFormData)
+compareButton.addEventListener('click', function () {
+    // debugger
+    tileData.human = getHuman();
+    tileData.dino = createDino();
+    addElement()
+    form().remove()
+});
+// create dino object
+
+function Dino(obj,i){
+    return{
+        species: obj.Dinos[i].species,
+        weight:obj.Dinos[i].weight,
+        height: obj.Dinos[i].height,
+        diet: obj.Dinos[i].diet,
+        where: obj.Dinos[i].where,
+        when: obj.Dinos[i].when,
+        fact: obj.Dinos[i].fact,
+    }
+
+}
+
 
     const dinoObj ={
         "Dinos": [
@@ -81,50 +107,59 @@ compareButton.addEventListener('click', getFormData)
             }
         ]
     }
+// Create Dinos and push it to tileData 
+
+
+   createDino()
     
-    // get button element
-    const button = document.getElementById('btn');
+  
+
+   
+
+    myDino = new Dino(dinoObj,1)
 
     // Create Dino Constructor
-    function Dino(obj, i){
-        this.species= obj.Dinos[i].species
-        this.weight= obj.Dinos[i].weight
-        this.height= obj.Dinos[i].height
-        this.diet= obj.Dinos[i].diet
-        this.where= obj.Dinos[i].where
-        this.when= obj.Dinos[i].when
-        this.fact= obj.Dinos[i].fact
+    // function Dino(obj, i){
+    //     return{
 
-        function sayName(){
-            console.log(this.species)
-        }
-    }
+    //         species: obj.Dinos[i].species,
+    //         weight:obj.Dinos[i].weight,
+    //         height: obj.Dinos[i].height,
+    //         diet: obj.Dinos[i].diet,
+    //         where: obj.Dinos[i].where,
+    //         when: obj.Dinos[i].when,
+    //         fact: obj.Dinos[i].fact,
+    //         sayName: function sayName(){
+    //         console.log(this.species)
+    //     }
+    //     }
+        
+    // }
    
    
     // Create Dino Objects
-
-    const triceratops = new Dino(dinoObj,0)
-    const tyrannosaurus = new Dino(dinoObj,1)
-    const anklyosaurus = new Dino(dinoObj,2)
-    const brachiosaurus = new Dino(dinoObj,3)
-    const stegosaurus = new Dino(dinoObj,4)
-    const elasmosaurus = new Dino(dinoObj,5)
-    const pteranodon = new Dino(dinoObj,6)
-    const pigeon = new Dino(dinoObj,7)
-    // const Pteranodon = new Dino(dinoObj,6)
+    function createDino(){
+        const dinoArray = [] 
+          for(const elem of dinoObj.Dinos){
+          dinoArray.push(elem)
+      }
+       return dinoArray
+     }
     
-    console.log(triceratops.species)
 
     // Create Human Object
 
-    function Human(obj){
 
-        this.name = obj.name.value
-        this.weight =obj.weight.value
-        this.diet = obj.diet.value
+
+    function Human(obj){
+      return {
+        name: obj.name.value,
+        weight : obj.weight.value,
+        diet : obj.diet.value,
         fact: function fact(){
-            return(` I am a human and I weigh ${weight} lbs`)
+            return(` I am a human and I weigh ${this.weight} lbs`);
         }
+      }
     }
 
 
@@ -144,11 +179,30 @@ compareButton.addEventListener('click', getFormData)
 
 
     // Generate Tiles for each Dino in Array
-  
+
+        //1.create list 
+        //2.create li
+        //3.creat div
+        //4.append div to li
+        // 5.append li to ul
+        // 6. repeat 2 - 5
+        // append list to grid 
+function addElement(){
+    for( let i=0 ; i< 9; i++){
+        let gridItem = document.createElement('div');
+    
+        gridItem.setAttribute('class','grid-item' );
+
+        gridItem.textContent= "this is a test item"
+        grid.appendChild(gridItem)
+    }
+    
+}
+      
         // Add tiles to DOM
 
     // Remove form from screen
-
+        //element.remove()
 
 // On button click, prepare and display infographic
 
@@ -156,13 +210,20 @@ compareButton.addEventListener('click', getFormData)
 
 //get input data form and store it an object
 
-function getFormData(){
-    let formData = document.getElementById('dino-compare')
-    console.log('button was clicked')
-    console.log(formData)
-    let human =  new Human(formData)
-    
-   console.log(human)
-   return human
+
+
+function form() {
+    let form = document.getElementById('dino-compare');
+
+    remove: function removeForm(){form.remove()}
+
+  return form
 }
+
+
+function getHuman(){
+  const formData = form();
+  return new Human(formData);
+}
+
 
