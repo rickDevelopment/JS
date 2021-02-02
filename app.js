@@ -40,7 +40,10 @@ function Dino(obj,i){
                 "diet": "herbavor",
                 "where": "North America",
                 "when": "Late Cretaceous",
-                "fact": "First discovered in 1889 by Othniel Charles Marsh"
+                "fact": "First discovered in 1889 by Othniel Charles Marsh",
+                "image": "./images/triceratops.png"
+
+
             },
             {
                 "species": "Tyrannosaurus Rex",
@@ -49,7 +52,8 @@ function Dino(obj,i){
                 "diet": "carnivor",
                 "where": "North America",
                 "when": "Late Cretaceous",
-                "fact": "The largest known skull measures in at 5 feet long."
+                "fact": "The largest known skull measures in at 5 feet long.",
+                "image": "./images/tyrannosaurus rex.png"
             },
             {
                 "species": "Anklyosaurus",
@@ -58,7 +62,8 @@ function Dino(obj,i){
                 "diet": "herbavor",
                 "where": "North America",
                 "when": "Late Cretaceous",
-                "fact": "Anklyosaurus survived for approximately 135 million years."
+                "fact": "Anklyosaurus survived for approximately 135 million years.",
+                "image": "./images/anklyosaurus.png"
             },
             {
                 "species": "Brachiosaurus",
@@ -67,7 +72,8 @@ function Dino(obj,i){
                 "diet": "herbavor",
                 "where": "North America",
                 "when": "Late Jurasic",
-                "fact": "An asteroid was named 9954 Brachiosaurus in 1991."
+                "fact": "An asteroid was named 9954 Brachiosaurus in 1991.",
+                "image": "./images/brachiosaurus.png"
             },
             {
                 "species": "Stegosaurus",
@@ -76,7 +82,8 @@ function Dino(obj,i){
                 "diet": "herbavor",
                 "where": "North America, Europe, Asia",
                 "when": "Late Jurasic to Early Cretaceous",
-                "fact": "The Stegosaurus had between 17 and 22 seperate places and flat spines."
+                "fact": "The Stegosaurus had between 17 and 22 seperate places and flat spines.",
+                "image": "./images/stegosaurus.png"
             },
             {
                 "species": "Elasmosaurus",
@@ -85,7 +92,8 @@ function Dino(obj,i){
                 "diet": "carnivor",
                 "where": "North America",
                 "when": "Late Cretaceous",
-                "fact": "Elasmosaurus was a marine reptile first discovered in Kansas."
+                "fact": "Elasmosaurus was a marine reptile first discovered in Kansas.",
+                "image": "./images/elasmosaurus.png"
             },
             {
                 "species": "Pteranodon",
@@ -94,7 +102,8 @@ function Dino(obj,i){
                 "diet": "carnivor",
                 "where": "North America",
                 "when": "Late Cretaceous",
-                "fact": "Actually a flying reptile, the Pteranodon is not a dinosaur."
+                "fact": "Actually a flying reptile, the Pteranodon is not a dinosaur.",
+                "image": "./images/pteranodon.png"
             },
             {
                 "species": "Pigeon",
@@ -103,7 +112,8 @@ function Dino(obj,i){
                 "diet": "herbavor",
                 "where": "World Wide",
                 "when": "Holocene",
-                "fact": "All birds are living dinosaurs."
+                "fact": "All birds are living dinosaurs.",
+                "image": "./images/pigeon.png"
             }
         ]
     }
@@ -188,12 +198,37 @@ function Dino(obj,i){
         // 6. repeat 2 - 5
         // append list to grid 
 function addElement(){
-    for( let i=0 ; i< 9; i++){
+    for( let i=0 ; i< 8; i++){
         let gridItem = document.createElement('div');
+        let heading = document.createElement('h3');
+        let para = document.createElement('p');
+        let lineBreak = document.createElement('br')
+        let image= document.createElement('img');
     
         gridItem.setAttribute('class','grid-item' );
 
-        gridItem.textContent= "this is a test item"
+        
+        let species = document.createTextNode(tileData.dino[i].species)
+        heading.appendChild(species)
+        gridItem.appendChild(heading)
+        let diet = document.createTextNode(`Diet: ${tileData.dino[i].diet}`)
+        para.appendChild(diet)
+        para.appendChild(lineBreak)
+
+        gridItem.appendChild(para)
+        let height = document.createTextNode(`Height: ${tileData.dino[i].height}`)
+        para.appendChild(height)
+        gridItem.appendChild(para)
+        image.src = tileData.dino[i].image
+        gridItem.appendChild(image)
+        
+        // para
+        // gridItem.appendChild(newContent)
+        // newContent = document.createTextNode(tileData.dino[i].fact)
+        // gridItem.appendChild(newContent)
+        // newContent = document.createTextNode(tileData.dino[i].weight)
+        // gridItem.appendChild(newContent)
+        
         grid.appendChild(gridItem)
     }
     
