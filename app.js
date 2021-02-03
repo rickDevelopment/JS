@@ -199,6 +199,10 @@ function Dino(obj,i){
         // append list to grid 
 function addElement(){
     for( let i=0 ; i< 8; i++){
+
+        if(i == 4){
+            
+        }
         let gridItem = document.createElement('div');
         let heading = document.createElement('h3');
         let para = document.createElement('p');
@@ -207,20 +211,24 @@ function addElement(){
     
         gridItem.setAttribute('class','grid-item' );
 
-        
         let species = document.createTextNode(tileData.dino[i].species)
         heading.appendChild(species)
         gridItem.appendChild(heading)
         let diet = document.createTextNode(`Diet: ${tileData.dino[i].diet}`)
         para.appendChild(diet)
         para.appendChild(lineBreak)
-
+        
         gridItem.appendChild(para)
         let height = document.createTextNode(`Height: ${tileData.dino[i].height}`)
         para.appendChild(height)
         gridItem.appendChild(para)
-        image.src = tileData.dino[i].image
+        
+        image.src = (`${tileData.dino[i].image}`)
+        // gridItem.style.backgroundImage =  `url(${tileData.dino[i].image})`
         gridItem.appendChild(image)
+
+
+        
         
         // para
         // gridItem.appendChild(newContent)
@@ -260,5 +268,6 @@ function getHuman(){
   const formData = form();
   return new Human(formData);
 }
+
 
 
