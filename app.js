@@ -1,4 +1,56 @@
 
+class Species{
+   constructor(name, height, weight, diet){
+     this.name = name;
+     this.height = height;
+     this.weight = weight;
+     this.diet = diet;
+
+     this.facts = [
+      ` ${this.name} weighs:  ${this.weight} pounds`,
+      ` ${this.name} is ${this.height} feet tall`,
+      ` ${this.name} has as ${this.diet}  diet`,
+   ]
+   }
+
+  displayFact(){
+    return this.facts[Math.floor(Math.random() * Math.floor(this.facts.length))]
+  }
+}
+
+// class Species{
+//    constructor(name, height, weight, diet){
+//      this.name = name;
+//      this.height = height;
+//      this.weight = weight;
+//      this.diet = diet;
+     
+//      this.facts = [
+//       ` ${this.name} weighs:  ${this.weight} pounds`,
+//       ` ${this.name} is ${this.height} feet tall`,
+//       ` ${this.name} has as ${this.diet}  diet`,
+//    ]
+//    }
+
+//   displayFact(){
+//     return this.facts[Math.floor(Math.random() * Math.floor(this.facts.length))]
+//   }
+// }
+
+class Dino1 extends Species{
+  constructor(name, height, weight, diet, image, fact){
+    super(name, height, weight,diet,)
+
+    this.image = image;
+    this.fact = fact
+  }
+}
+
+let human = new Species('John' , 10, 320, 'herbavor')
+
+console.log(human.displayFact());
+
+
 //get compare button
 let compareButton = document.getElementById('btn')
 let formData;
@@ -269,5 +321,97 @@ function getHuman(){
   return new Human(formData);
 }
 
+// FETCH dino info form file 
+let dinos1 = fetch('./dino.json')
+.then(response =>{
+  return response.json()
+})
+.then( data =>{
+  console.log(data)
+  return data
+  ;})
+
+console.log('this is the dino' + dinos1)
+
+/*_____________________Filipe code_______________
+
+// for adding markup to the DOM.
+// var fragment = document.createFragment();
 
 
+// var html = 
+//     `<div> 
+//         <h2>${dino.name}</h2>
+//      </div>`;
+
+// div.innerText = html;
+// document.body.appendChild(div);
+
+
+function Dino(obj,i){
+    return{
+        species: obj.Dinos[i].species,
+        weight:obj.Dinos[i].weight,
+        height: obj.Dinos[i].height,
+        diet: obj.Dinos[i].diet,
+        where: obj.Dinos[i].where,
+        when: obj.Dinos[i].when,
+        fact: obj.Dinos[i].fact,
+    }
+
+}
+
+   function createDino(){
+        const dinoArray = [] 
+          for(const elem of dinoObj.Dinos){
+          dinoArray.push(elem)
+      }
+       return dinoArray
+     }
+
+function getDinosaurs() {
+  return dinoObj.Dinos.map(function () {})
+}
+
+
+// compareButton.addEventListener('click', function () {
+//   const formData = getFormData();
+//   const human = getHuman(formData);
+//   const dinosaurs = getDinosaurs();
+  
+//   const titleData = dinosaurs.splice(3, 0, human);
+  
+//   appendTitles(titleData);
+  
+//     // tileData.human = getHuman();
+//     // tileData.dino = createDino();
+//     // addElement()
+//     form().remove()
+// });
+
+
+
+class Species {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  
+  fact() {
+    return this.name;
+  }
+}
+
+
+class Human extends Species {
+  constructor(name) {
+    super(name);
+  }
+}
+
+
+
+
+const alrick = new Human('Alrick');
+console.log(alrick.fact())
+*/
