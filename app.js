@@ -45,6 +45,11 @@ const tileData = {};
 compareButton.addEventListener('click', function () {
     // debugger
     tileData.human = getHuman();
+    tileData.human.image = "./images/human.png"
+    dinoObj.Dinos.splice(4,0,tileData.human)
+
+    // add human to dino object
+
     tileData.dino = createDino();
     addElement()
     form().remove()
@@ -179,9 +184,10 @@ function Dino(obj,i){
 
     function Human(obj){
       return {
-        name: obj.name.value,
+        species: obj.name.value,
         weight : obj.weight.value,
         diet : obj.diet.value,
+        height: obj.feet.value,
         fact: function fact(){
             return(` I am a human and I weigh ${this.weight} lbs`);
         }
@@ -214,16 +220,14 @@ function Dino(obj,i){
         // 6. repeat 2 - 5
         // append list to grid 
 function addElement(){
-    for( let i=0 ; i< 8; i++){
-
-        if(i == 4){
-            
-        }
+    for( let i=0 ; i< 9; i++){
         let gridItem = document.createElement('div');
         let heading = document.createElement('h3');
         let para = document.createElement('p');
         let lineBreak = document.createElement('br')
         let image= document.createElement('img');
+        
+        
     
         gridItem.setAttribute('class','grid-item' );
 
@@ -276,14 +280,4 @@ function getHuman(){
   return new Human(formData);
 }
 
-// FETCH dino info form file 
-let dinos1 = fetch('./dino.json')
-.then(response =>{
-  return response.json()
-})
-.then( data =>{
-  console.log(data)
-  return data
-  ;})
 
-console.log('this is the dino' + dinos1)
