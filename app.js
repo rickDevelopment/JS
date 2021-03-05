@@ -34,40 +34,6 @@
 
 // console.log(human.weight);
 
-//get compare button
-let compareButton = document.getElementById("btn");
-let formData;
-let grid = document.getElementById("grid");
-
-const tileData = {};
-
-// get form data
-compareButton.addEventListener("click", function () {
-  // debugger
-  tileData.human = getHuman();
-  tileData.human.image = "./images/human.png";
-  dinoObj.Dinos.splice(4, 0, tileData.human);
-
-  // add human to dino object
-
-  tileData.dino = createDino();
-  addElement();
-  form().remove();
-});
-// create dino object
-
-function Dino(obj, i) {
-  return {
-    species: obj.Dinos[i].species,
-    weight: obj.Dinos[i].weight,
-    height: obj.Dinos[i].height,
-    diet: obj.Dinos[i].diet,
-    where: obj.Dinos[i].where,
-    when: obj.Dinos[i].when,
-    fact: obj.Dinos[i].fact,
-  };
-}
-
 const dinoObj = {
   Dinos: [
     {
@@ -153,17 +119,45 @@ const dinoObj = {
     },
   ],
 };
+
+//get compare button
+let compareButton = document.getElementById("btn");
+let grid = document.getElementById("grid");
+
+const tileData = {};
+
+compareButton.addEventListener("click", function () {
+  tileData.human = createHuman();
+
+  // add human to dino object
+  dinoObj.Dinos.splice(4, 0, tileData.human);
+
+  tileData.dino = createDino();
+  addElement();
+});
+// create dino object
+
+function Dino(obj) {
+  return {
+    species: obj.species,
+    weight: obj.weight,
+    height: obj.height,
+    diet: obj.diet,
+    where: obj.where,
+    when: obj.when,
+    fact: obj.fact,
+    image: obj.image
+  };
+}
+
 // Create Dinos and push it to tileData
-
-createDino();
-
-myDino = new Dino(dinoObj, 1);
 
 // Create Dino Objects
 function createDino() {
   const dinoArray = [];
-  for (const elem of dinoObj.Dinos) {
-    dinoArray.push(elem);
+  for (const dino of dinoObj.Dinos) {
+      
+    dinoArray.push(new Dino(dino));
   }
   return dinoArray;
 }
@@ -176,13 +170,27 @@ function Human(obj) {
     weight: obj.weight.value,
     diet: obj.diet.value,
     height: obj.feet.value,
-    fact: function fact() {
-      return ` I am a human and I weigh ${this.weight} lbs`;
+    image: "./images/human.png",
+    facts: [
+      `I am a human and I weigh ${this.weight} lbs`,
+      `My diet is a ${this.diet} diet`,
+      `I am ${this.height} feet tall`,
+    ],
+    displayFact: function fact() {
+      return this.facts[Math.floor(Math.random() * this.facts.length)];
     },
   };
 }
 
 // Use IIFE to get human data from form
+function createHuman() {
+  const formData = document.getElementById("dino-compare");
+
+  // Remove form from screen
+  formData.remove();
+  // get form data
+  return new Human(formData);
+}
 
 // Create Dino Compare Method 1
 // NOTE: Weight in JSON file is in lbs, height in inches.
@@ -195,12 +203,13 @@ function Human(obj) {
 
 // Generate Tiles for each Dino in Array
 
+// On button click, prepare and display infographic
 //1.create list
 //2.create li
 //3.creat div
 //4.append div to li
 // 5.append li to ul
-// 6. repeat 2 - 5
+// 6. repeat 2 - 5ß
 // append list to grid
 function addElement() {
   for (let i = 0; i < 9; i++) {
@@ -227,31 +236,9 @@ function addElement() {
     image.src = `${tileData.dino[i].image}`;
     // gridItem.style.backgroundImage =  `url(${tileData.dino[i].image})`
     gridItem.appendChild(image);
-
+    // Add tiles to DOM
     grid.appendChild(gridItem);
   }
 }
 
-// Add tiles to DOM
-
-// Remove form from screen
-//element.remove()
-
-// On button click, prepare and display infographic
-
 //get input data form and store it an object
-
-function form() {
-  let form = document.getElementById("dino-compare");
-
-  remove: function removeForm() {
-    form.remove();
-  }
-
-  return form;
-}
-
-function getHuman() {
-  const formData = form();
-  return new Human(formData);
-}
