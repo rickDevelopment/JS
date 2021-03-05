@@ -10,7 +10,7 @@ body {
 h1 {
     margin: 0;
     font-family: 'Frijole', cursive;
-    font-size: 3em;
+    font-size: 3em; 
     font-weight: 400;
 }
 
@@ -90,7 +90,7 @@ p {
 @media (min-width: 550px) {
     #grid div {
         width: calc(100% / 3);
-        height: 200px;
+        /* height: 200px; */
         border: #443a3a 2px solid;
     }
 }
