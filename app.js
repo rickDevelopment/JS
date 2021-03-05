@@ -1,39 +1,3 @@
-// class Species{
-//    constructor(name, image){
-//      this.name = name;
-//      this.image = image
-//      this.facts = [];
-//    }
-//   displayFact(){
-//     return this.facts[Math.floor(Math.random() * Math.floor(this.facts.length))]
-//   }
-// }
-
-// class Dino1 extends Species{
-//   constructor(name, height, weight, diet, image, facts){
-//     super(name, image, facts)
-
-//     this.height = height;
-//     this.weight = weight;
-//     this.diet = diet;
-//     // this.where = where;
-//     // this.when = when;
-
-//     this.facts = [
-//      ` Did you know ${this.name} weighs:  ${this.weight} pounds`,
-//      ` ${this.name} is ${this.height} feet tall`,
-//      ` ${this.name} has as ${this.diet}  diet`,
-//      ` ${this.name} lived in ${this.where}`,
-//      ` ${this.name} ${this.fact}  `,
-//      ` ${this.name} lived until ${this.when} `,
-//   ]
-//   }
-// }
-
-// let human = new Species('John' , './images/human.png')
-
-// console.log(human.weight);
-
 const dinoObj = {
   Dinos: [
     {
@@ -149,10 +113,10 @@ function Dino(obj) {
     image: obj.image,
     facts: [
         `${obj.fact} `,
-        ` ${obj.diet} diet`,
-        ` ${obj.height} feet tall`,
-        `${obj.where}`,
-        ` ${obj.when}`
+        `${obj.species} has a ${obj.diet} diet.`,
+        `${obj.species} can grow upto ${obj.height} feet tall.`,
+        `${obj.species} lived in ${obj.where}.`,
+        `${obj.species} lived during ${obj.when} era.`
       ],
       displayFact: function fact() {
         return this.facts[Math.floor(Math.random() * this.facts.length)];
@@ -251,3 +215,10 @@ function addElement() {
 }
 
 //get input data form and store it an object
+
+//to do 
+//create method to compare weight (dino weighs x pounds which is x amount <> than human weight)
+//create method to compare height 
+//create method to compare diet (state the different or similarties)
+// method should be on the dino object
+//Upadate the pigion facts
