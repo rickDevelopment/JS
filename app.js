@@ -146,7 +146,17 @@ function Dino(obj) {
     where: obj.where,
     when: obj.when,
     fact: obj.fact,
-    image: obj.image
+    image: obj.image,
+    facts: [
+        `${obj.fact} `,
+        ` ${obj.diet} diet`,
+        ` ${obj.height} feet tall`,
+        `${obj.where}`,
+        ` ${obj.when}`
+      ],
+      displayFact: function fact() {
+        return this.facts[Math.floor(Math.random() * this.facts.length)];
+      },
   };
 }
 
@@ -172,9 +182,9 @@ function Human(obj) {
     height: obj.feet.value,
     image: "./images/human.png",
     facts: [
-      `I am a human and I weigh ${this.weight} lbs`,
-      `My diet is a ${this.diet} diet`,
-      `I am ${this.height} feet tall`,
+      `I am a human and I weigh ${obj.weight} lbs`,
+      `My diet is a ${obj.diet} diet`,
+      `I am ${obj.height} feet tall`,
     ],
     displayFact: function fact() {
       return this.facts[Math.floor(Math.random() * this.facts.length)];
@@ -224,17 +234,16 @@ function addElement() {
     let species = document.createTextNode(tileData.dino[i].species);
     heading.appendChild(species);
     gridItem.appendChild(heading);
-    let diet = document.createTextNode(`Diet: ${tileData.dino[i].diet}`);
+    let diet = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
     para.appendChild(diet);
     para.appendChild(lineBreak);
 
     gridItem.appendChild(para);
-    let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
-    para.appendChild(height);
+    // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
+    // para.appendChild(height);
     gridItem.appendChild(para);
 
     image.src = `${tileData.dino[i].image}`;
-    // gridItem.style.backgroundImage =  `url(${tileData.dino[i].image})`
     gridItem.appendChild(image);
     // Add tiles to DOM
     grid.appendChild(gridItem);
