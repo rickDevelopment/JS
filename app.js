@@ -90,11 +90,12 @@ let grid = document.getElementById("grid");
 
 const tileData = {};
 
-compareButton.addEventListener("click", function () {
+compareButton.addEventListener("click", function (event) {
+  event.stopPropagation;
   tileData.human = createHuman();
 
-  // add human to dino object
-  dinoObj.Dinos.splice(4, 0, tileData.human);
+  // add human to dino object array
+  // dinoObj.Dinos.splice(4, 0, tileData.human);
 
   tileData.dino = createDino();
   addElement();
@@ -112,16 +113,29 @@ function Dino(obj) {
     fact: obj.fact,
     image: obj.image,
     facts: [
-        `${obj.fact} `,
-        `${obj.species} has a ${obj.diet} diet.`,
-        `${obj.species} can grow upto ${obj.height} feet tall.`,
-        `${obj.species} lived in ${obj.where}.`,
-        `${obj.species} lived during ${obj.when} era.`
-      ],
-      displayFact: function fact() {
-        return this.facts[Math.floor(Math.random() * this.facts.length)];
-      },
+      `${obj.fact} `,
+      // `${obj.species} has a ${obj.diet} diet.`,
+      // `${obj.species} can grow upto ${obj.height} feet tall.`,
+      // `${obj.species} lived in ${obj.where}.`,
+      // `${obj.species} lived during ${obj.when} era.`,
+    ],
+    displayFact: function fact() {
+      return this.facts[Math.floor(Math.random() * this.facts.length)];
+    },
   };
+}
+
+// Create Dino Compare Method 1
+Dino.prototype.dietCompare = function(){
+  if (human.diet === this.diet){
+      return `${this.species} was a ${this.diet}. You two could share dinner.`;
+  } else if (this.diet === "carnivor"){
+      return `${this.species} was a ${this.diet}. Better run before you become the meal.`;
+  } else if (this.diet === "herbavor"){
+      return `${this.species} was a ${this.diet}. You'll have to prepare an extra salad for dinner.`;
+  } else {
+      return `${this.species} was a ${this.diet}. Time to suggest a potluck.`;
+  }
 }
 
 // Create Dinos and push it to tileData
@@ -130,7 +144,6 @@ function Dino(obj) {
 function createDino() {
   const dinoArray = [];
   for (const dino of dinoObj.Dinos) {
-      
     dinoArray.push(new Dino(dino));
   }
   return dinoArray;
@@ -140,30 +153,27 @@ function createDino() {
 
 function Human(obj) {
   return {
-    species: obj.name.value,
+    name: obj.name.value,
     weight: obj.weight.value,
     diet: obj.diet.value,
     height: obj.feet.value,
-    image: "./images/human.png",
-    facts: [
-      `I am a human and I weigh ${obj.weight} lbs`,
-      `My diet is a ${obj.diet} diet`,
-      `I am ${obj.height} feet tall`,
-    ],
-    displayFact: function fact() {
-      return this.facts[Math.floor(Math.random() * this.facts.length)];
-    },
+    image: "./images/human.png"
   };
 }
 
 // Use IIFE to get human data from form
 function createHuman() {
   const formData = document.getElementById("dino-compare");
-
-  // Remove form from screen
-  formData.remove();
-  // get form data
-  return new Human(formData);
+  // check if name is blank
+  if (formData.name.value === "") {
+    // alert("Please refresh the page and enter a name");
+    return;
+  } else {
+    // Remove form from screen
+    formData.remove();
+    // get form data
+    return new Human(formData);
+  }
 }
 
 // Create Dino Compare Method 1
@@ -186,7 +196,12 @@ function createHuman() {
 // 6. repeat 2 - 5ß
 // append list to grid
 function addElement() {
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) 
+   {
+    let fragment = new DocumentFragment();
+
+  
+
     let gridItem = document.createElement("div");
     let heading = document.createElement("h3");
     let para = document.createElement("p");
@@ -195,11 +210,12 @@ function addElement() {
 
     gridItem.setAttribute("class", "grid-item");
 
+
     let species = document.createTextNode(tileData.dino[i].species);
     heading.appendChild(species);
     gridItem.appendChild(heading);
-    let diet = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
-    para.appendChild(diet);
+    let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
+    para.appendChild(fact);
     para.appendChild(lineBreak);
 
     gridItem.appendChild(para);
@@ -210,15 +226,39 @@ function addElement() {
     image.src = `${tileData.dino[i].image}`;
     gridItem.appendChild(image);
     // Add tiles to DOM
-    grid.appendChild(gridItem);
+    fragment.appendChild(gridItem)
+    grid.appendChild(fragment);
   }
+
+  if(i === 4){
+    let name = document.createTextNode(tileData.human.name);
+    heading.appendChild(name);
+    gridItem.appendChild(heading);
+    // let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
+    // para.appendChild(fact);
+    para.appendChild(lineBreak);
+
+    // gridItem.appendChild(para);
+    // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
+    // para.appendChild(height);
+    // gridItem.appendChild(para);
+
+    image.src = `${tileData.human.image}`;
+    gridItem.appendChild(image);
+    // Add tiles to DOM
+    fragment.appendChild(gridItem)
+    grid.appendChild(fragment);
+
+      i++
+    }
+  console.log(i);
 }
 
 //get input data form and store it an object
 
-//to do 
+//to do
 //create method to compare weight (dino weighs x pounds which is x amount <> than human weight)
-//create method to compare height 
+//create method to compare height
 //create method to compare diet (state the different or similarties)
 // method should be on the dino object
 //Upadate the pigion facts
