@@ -144,7 +144,9 @@ Dino.prototype.dietCompare = function(){
 function createDino() {
   const dinoArray = [];
   for (const dino of dinoObj.Dinos) {
-    dinoArray.push(new Dino(dino));
+    const d = new Dino(dino);
+    d.facts.push(d.dietCompare());
+    dinoArray.push(d);
   }
   return dinoArray;
 }
