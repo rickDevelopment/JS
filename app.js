@@ -88,6 +88,45 @@ const dinoObj = {
 let compareButton = document.getElementById("btn");
 let grid = document.getElementById("grid");
 
+// create dino object
+
+class Dino {
+  constructor(obj) {
+    
+      this. species=  obj.species,
+      this.weight = obj.weight,
+      this. height =  obj.height,
+      this.diet = obj.diet,
+      this.where = obj.where,
+      this.when = obj.when,
+      this.fact = obj.fact,
+      this.image = obj.image,
+      this.facts = [
+        `${obj.fact} `
+        // `${obj.species} has a ${obj.diet} diet.`,
+        // `${obj.species} can grow upto ${obj.height} feet tall.`,
+        // `${obj.species} lived in ${obj.where}.`,
+        // `${obj.species} lived during ${obj.when} era.`
+      ],
+    
+      this.displayFact= function fact() {
+        return this.facts[Math.floor(Math.random() * this.facts.length)];
+      }
+  }
+  // Create Dino Compare Method 1
+  dietCompare() {
+    if (tileData.human.diet === this.diet) {
+      return `${this.species} was a ${this.diet}. You two could share dinner.`;
+    } else if (this.diet === "carnivor") {
+      return `${this.species} was a ${this.diet}. Better run before you become the meal.`;
+    } else if (this.diet === "herbavor") {
+      return `${this.species} was a ${this.diet}. You'll have to prepare an extra salad for dinner.`;
+    } else {
+      return `${this.species} was a ${this.diet}. Time to suggest a potluck.`;
+    }
+  }
+}
+
 const tileData = {};
 
 compareButton.addEventListener("click", function (event) {
@@ -100,52 +139,26 @@ compareButton.addEventListener("click", function (event) {
   tileData.dino = createDino();
   addElement();
 });
-// create dino object
-
-function Dino(obj) {
-  return {
-    species: obj.species,
-    weight: obj.weight,
-    height: obj.height,
-    diet: obj.diet,
-    where: obj.where,
-    when: obj.when,
-    fact: obj.fact,
-    image: obj.image,
-    facts: [
-      `${obj.fact} `,
-      `${obj.species} has a ${obj.diet} diet.`,
-      `${obj.species} can grow upto ${obj.height} feet tall.`,
-      `${obj.species} lived in ${obj.where}.`,
-      `${obj.species} lived during ${obj.when} era.`,
-    ],
-    displayFact: function fact() {
-      return this.facts[Math.floor(Math.random() * this.facts.length)];
-    },
-  };
-}
-
-// Create Dino Compare Method 1
-Dino.prototype.dietCompare = function(){
-  if (human.diet === this.diet){
-      return `${this.species} was a ${this.diet}. You two could share dinner.`;
-  } else if (this.diet === "carnivor"){
-      return `${this.species} was a ${this.diet}. Better run before you become the meal.`;
-  } else if (this.diet === "herbavor"){
-      return `${this.species} was a ${this.diet}. You'll have to prepare an extra salad for dinner.`;
-  } else {
-      return `${this.species} was a ${this.diet}. Time to suggest a potluck.`;
-  }
-}
 
 // Create Dinos and push it to tileData
+let dinoArray = dinoObj.Dinos.map(dino => {new Dino(dino)})
+
+let tri =     {
+  species: "Triceratops",
+  weight: 13000,
+  height: 114,
+  diet: "herbavor",
+  where: "North America",
+  when: "Late Cretaceous",
+  fact: "First discovered in 1889 by Othniel Charles Marsh",
+  image: "./images/triceratops.png",
+}
+let tricep =  new Dino(tri)
+console.log('Tricep:'+ tricep.prototype)
 
 // Create Dino Objects
 function createDino() {
-  const dinoArray = [];
-  for (const dino of dinoObj.Dinos) {
-    dinoArray.push(new Dino(dino));
-  }
+  const dinoArray = dinoObj.Dinos.map(dino => new Dino(dino))
   return dinoArray;
 }
 
