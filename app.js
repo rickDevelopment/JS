@@ -103,10 +103,6 @@ class Dino {
       this.image = obj.image,
       this.facts = [
         `${obj.fact} `
-        // `${obj.species} has a ${obj.diet} diet.`,
-        // `${obj.species} can grow upto ${obj.height} feet tall.`,
-        // `${obj.species} lived in ${obj.where}.`,
-        // `${obj.species} lived during ${obj.when} era.`
       ],
     
       this.displayFact= function fact() {
@@ -125,6 +121,23 @@ class Dino {
       return `${this.species} was a ${this.diet}. Time to suggest a potluck.`;
     }
   }
+  weightCompare() {
+    if (tileData.human.weight === '') {
+      return `Your is 0 but a ${this.species} weighs ${this.weight} lbs.`
+    }  else {
+          const humanWeight = parseInt(tileData.human.weight)
+       return `A ${this.species} is approximately ${Math.floor(this.weight/humanWeight)} times your current weight of ${humanWeight} lbs.`
+    }
+  }
+  generateFacts(){[
+    `${this.species} has a ${this.diet} diet.`,
+    `${this.species} can grow upto ${this.height} feet tall.`,
+    `${this.species} lived in ${this.where}.`,
+    `${this.species} lived during ${this.when} era.`
+  ]
+  }
+
+
 }
 
 const tileData = {};
@@ -150,6 +163,7 @@ function createDino() {
 //add facts to dino
   dinoArray.forEach(dino => {
     dino.facts.push(dino.dietCompare())
+    dino.facts.push(dino.weightCompare())
   })
   return dinoArray;
 }
@@ -233,8 +247,6 @@ if(i === 4){
   fragment.appendChild(gridItem)
   grid.appendChild(fragment);
 
-    // i++
-    console.log('this is from the if statement ', i);
 
   } else if(tileData.dino[i].species === 'Pigeon'){
     let species = document.createTextNode(tileData.dino[i].species);
@@ -256,7 +268,6 @@ if(i === 4){
     grid.appendChild(fragment);
 
     // append human tile in the middle of grid
-    console.log(i);
   } else{
 
     let species = document.createTextNode(tileData.dino[i].species);
@@ -278,8 +289,6 @@ if(i === 4){
     grid.appendChild(fragment);
 
     // append human tile in the middle of grid
-    console.log(i);
-
   }
   }
 
