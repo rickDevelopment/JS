@@ -102,8 +102,12 @@ class Dino {
       this.fact = obj.fact,
       this.image = obj.image,
       this.facts = [
-        `${obj.fact} `
-      ],
+        `${obj.fact} `,
+        `${this.species} has a ${this.diet} diet.`,
+        `${this.species} can grow upto ${this.height} feet tall.`,
+        `${this.species} lived in ${obj.where}.`,
+        `${obj.species} lived during ${obj.when} era.`
+          ],
     
       this.displayFact= function fact() {
         return this.facts[Math.floor(Math.random() * this.facts.length)];
@@ -126,15 +130,17 @@ class Dino {
       return `Your is 0 but a ${this.species} weighs ${this.weight} lbs.`
     }  else {
           const humanWeight = parseInt(tileData.human.weight)
+          console.log(humanWeight);
        return `A ${this.species} is approximately ${Math.floor(this.weight/humanWeight)} times your current weight of ${humanWeight} lbs.`
     }
   }
-  generateFacts(){[
+  generateFacts(){
+    [
     `${this.species} has a ${this.diet} diet.`,
     `${this.species} can grow upto ${this.height} feet tall.`,
-    `${this.species} lived in ${this.where}.`,
-    `${this.species} lived during ${this.when} era.`
-  ]
+    `${this.species} lived in ${obj.where}.`,
+    `${obj.species} lived during ${obj.when} era.`
+    ]
   }
 
 
@@ -186,7 +192,7 @@ function createHuman() {
   const formData = document.getElementById("dino-compare");
   // check if name is blank
   if (formData.name.value === "") {
-    // alert("Please refresh the page and enter a name");
+    alert("Please refresh the page and enter a name");
     return;
   } else {
     // Remove form from screen
