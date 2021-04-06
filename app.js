@@ -141,24 +141,16 @@ compareButton.addEventListener("click", function (event) {
 });
 
 // Create Dinos and push it to tileData
-let dinoArray = dinoObj.Dinos.map(dino => {new Dino(dino)})
+// let dinoArray = dinoObj.Dinos.map(dino => {new Dino(dino)})
 
-let tri =     {
-  species: "Triceratops",
-  weight: 13000,
-  height: 114,
-  diet: "herbavor",
-  where: "North America",
-  when: "Late Cretaceous",
-  fact: "First discovered in 1889 by Othniel Charles Marsh",
-  image: "./images/triceratops.png",
-}
-let tricep =  new Dino(tri)
-console.log('Tricep:'+ tricep.prototype)
 
 // Create Dino Objects
 function createDino() {
   const dinoArray = dinoObj.Dinos.map(dino => new Dino(dino))
+//add facts to dino
+  dinoArray.forEach(dino => {
+    dino.facts.push(dino.dietCompare())
+  })
   return dinoArray;
 }
 
@@ -213,8 +205,6 @@ function addElement() {
   for (let i = 0; i < tileData.dino.length; i++) 
    {
     let fragment = new DocumentFragment();
-
-  
 
     let gridItem = document.createElement("div");
     let heading = document.createElement("h3");
