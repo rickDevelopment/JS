@@ -130,18 +130,18 @@ class Dino {
       return `Your is 0 but a ${this.species} weighs ${this.weight} lbs.`
     }  else {
           const humanWeight = parseInt(tileData.human.weight)
-          console.log(humanWeight);
        return `A ${this.species} is approximately ${Math.floor(this.weight/humanWeight)} times your current weight of ${humanWeight} lbs.`
     }
   }
-  generateFacts(){
-    [
-    `${this.species} has a ${this.diet} diet.`,
-    `${this.species} can grow upto ${this.height} feet tall.`,
-    `${this.species} lived in ${obj.where}.`,
-    `${obj.species} lived during ${obj.when} era.`
-    ]
+  heightCompare() {
+    if (tileData.human.feet === '' || tileData.human.inches === '') {
+      return `You did no enter a height but a ${this.species} stands at ${this.height} inches tall.`
+    }  else {
+          const humanHeight= (parseInt(tileData.human.height)*12)  
+       return `A ${this.species} is  ${this.height} inches tall, compared to your height of ${humanHeight} inches.`
+    }
   }
+
 
 
 }
@@ -159,9 +159,6 @@ compareButton.addEventListener("click", function (event) {
   addElement();
 });
 
-// Create Dinos and push it to tileData
-// let dinoArray = dinoObj.Dinos.map(dino => {new Dino(dino)})
-
 
 // Create Dino Objects
 function createDino() {
@@ -170,6 +167,7 @@ function createDino() {
   dinoArray.forEach(dino => {
     dino.facts.push(dino.dietCompare())
     dino.facts.push(dino.weightCompare())
+    dino.facts.push(dino.heightCompare())
   })
   return dinoArray;
 }
