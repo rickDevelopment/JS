@@ -92,26 +92,24 @@ let grid = document.getElementById("grid");
 
 class Dino {
   constructor(obj) {
-    
-      this. species=  obj.species,
-      this.weight = obj.weight,
-      this. height =  obj.height,
-      this.diet = obj.diet,
-      this.where = obj.where,
-      this.when = obj.when,
-      this.fact = obj.fact,
-      this.image = obj.image,
-      this.facts = [
+    (this.species = obj.species),
+      (this.weight = obj.weight),
+      (this.height = obj.height),
+      (this.diet = obj.diet),
+      (this.where = obj.where),
+      (this.when = obj.when),
+      (this.fact = obj.fact),
+      (this.image = obj.image),
+      (this.facts = [
         `${obj.fact} `,
         `${this.species} has a ${this.diet} diet.`,
         `${this.species} can grow upto ${this.height} feet tall.`,
         `${this.species} lived in ${obj.where}.`,
-        `${obj.species} lived during ${obj.when} era.`
-          ],
-    
-      this.displayFact= function fact() {
+        `${obj.species} lived during ${obj.when} era.`,
+      ]),
+      (this.displayFact = function fact() {
         return this.facts[Math.floor(Math.random() * this.facts.length)];
-      }
+      });
   }
   // Create Dino Compare Method 1
   dietCompare() {
@@ -126,24 +124,23 @@ class Dino {
     }
   }
   weightCompare() {
-    if (tileData.human.weight === '') {
-      return `Your is 0 but a ${this.species} weighs ${this.weight} lbs.`
-    }  else {
-          const humanWeight = parseInt(tileData.human.weight)
-       return `A ${this.species} is approximately ${Math.floor(this.weight/humanWeight)} times your current weight of ${humanWeight} lbs.`
+    if (tileData.human.weight === "") {
+      return `Your is 0 but a ${this.species} weighs ${this.weight} lbs.`;
+    } else {
+      const humanWeight = parseInt(tileData.human.weight);
+      return `A ${this.species} is approximately ${Math.floor(
+        this.weight / humanWeight
+      )} times your current weight of ${humanWeight} lbs.`;
     }
   }
   heightCompare() {
-    if (tileData.human.feet === '' || tileData.human.inches === '') {
-      return `You did no enter a height but a ${this.species} stands at ${this.height} inches tall.`
-    }  else {
-          const humanHeight= (parseInt(tileData.human.height)*12)  
-       return `A ${this.species} is  ${this.height} inches tall, compared to your height of ${humanHeight} inches.`
+    if (tileData.human.feet === "" || tileData.human.inches === "") {
+      return `You did no enter a height but a ${this.species} stands at ${this.height} inches tall.`;
+    } else {
+      const humanHeight = parseInt(tileData.human.height) * 12;
+      return `A ${this.species} is  ${this.height} inches tall, compared to your height of ${humanHeight} inches.`;
     }
   }
-
-
-
 }
 
 const tileData = {};
@@ -159,16 +156,15 @@ compareButton.addEventListener("click", function (event) {
   addElement();
 });
 
-
 // Create Dino Objects
 function createDino() {
-  const dinoArray = dinoObj.Dinos.map(dino => new Dino(dino))
-//add facts to dino
-  dinoArray.forEach(dino => {
-    dino.facts.push(dino.dietCompare())
-    dino.facts.push(dino.weightCompare())
-    dino.facts.push(dino.heightCompare())
-  })
+  const dinoArray = dinoObj.Dinos.map((dino) => new Dino(dino));
+  //add facts to dino
+  dinoArray.forEach((dino) => {
+    dino.facts.push(dino.dietCompare());
+    dino.facts.push(dino.weightCompare());
+    dino.facts.push(dino.heightCompare());
+  });
   return dinoArray;
 }
 
@@ -176,12 +172,12 @@ function createDino() {
 
 function Human(obj) {
   return {
-    species:'human',
+    species: "human",
     name: obj.name.value,
     weight: obj.weight.value,
     diet: obj.diet.value,
     height: obj.feet.value,
-    image: "./images/human.png"
+    image: "./images/human.png",
   };
 }
 
@@ -220,8 +216,7 @@ function createHuman() {
 // 6. repeat 2 - 5ß
 // append list to grid
 function addElement() {
-  for (let i = 0; i < tileData.dino.length; i++) 
-   {
+  for (let i = 0; i < tileData.dino.length; i++) {
     let fragment = new DocumentFragment();
 
     let gridItem = document.createElement("div");
@@ -232,70 +227,66 @@ function addElement() {
 
     gridItem.setAttribute("class", "grid-item");
 
-if(i === 4){
-  let name = document.createTextNode(tileData.human.name);
-  heading.appendChild(name);
-  gridItem.appendChild(heading);
-  // let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
-  // para.appendChild(fact);
-  para.appendChild(lineBreak);
+    if (i === 4) {
+      let name = document.createTextNode(tileData.human.name);
+      heading.appendChild(name);
+      gridItem.appendChild(heading);
+      // let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
+      // para.appendChild(fact);
+      para.appendChild(lineBreak);
 
-  // gridItem.appendChild(para);
-  // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
-  // para.appendChild(height);
-  // gridItem.appendChild(para);
+      // gridItem.appendChild(para);
+      // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
+      // para.appendChild(height);
+      // gridItem.appendChild(para);
 
-  image.src = `${tileData.human.image}`;
-  gridItem.appendChild(image);
-  // Add tiles to DOM
-  fragment.appendChild(gridItem)
-  grid.appendChild(fragment);
+      image.src = `${tileData.human.image}`;
+      gridItem.appendChild(image);
+      // Add tiles to DOM
+      fragment.appendChild(gridItem);
+      grid.appendChild(fragment);
+    } else if (tileData.dino[i].species === "Pigeon") {
+      let species = document.createTextNode(tileData.dino[i].species);
+      heading.appendChild(species);
+      gridItem.appendChild(heading);
+      let fact = document.createTextNode(`All birds are living dinosaurs.`);
+      para.appendChild(fact);
+      para.appendChild(lineBreak);
 
+      gridItem.appendChild(para);
+      // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
+      // para.appendChild(height);
+      gridItem.appendChild(para);
 
-  } else if(tileData.dino[i].species === 'Pigeon'){
-    let species = document.createTextNode(tileData.dino[i].species);
-    heading.appendChild(species);
-    gridItem.appendChild(heading);
-    let fact = document.createTextNode(`All birds are living dinosaurs.`);
-    para.appendChild(fact);
-    para.appendChild(lineBreak);
+      image.src = `${tileData.dino[i].image}`;
+      gridItem.appendChild(image);
+      // Add tiles to DOM
+      fragment.appendChild(gridItem);
+      grid.appendChild(fragment);
 
-    gridItem.appendChild(para);
-    // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
-    // para.appendChild(height);
-    gridItem.appendChild(para);
+      // append human tile in the middle of grid
+    } else {
+      let species = document.createTextNode(tileData.dino[i].species);
+      heading.appendChild(species);
+      gridItem.appendChild(heading);
+      let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
+      para.appendChild(fact);
+      para.appendChild(lineBreak);
 
-    image.src = `${tileData.dino[i].image}`;
-    gridItem.appendChild(image);
-    // Add tiles to DOM
-    fragment.appendChild(gridItem)
-    grid.appendChild(fragment);
+      gridItem.appendChild(para);
+      // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
+      // para.appendChild(height);
+      gridItem.appendChild(para);
 
-    // append human tile in the middle of grid
-  } else{
+      image.src = `${tileData.dino[i].image}`;
+      gridItem.appendChild(image);
+      // Add tiles to DOM
+      fragment.appendChild(gridItem);
+      grid.appendChild(fragment);
 
-    let species = document.createTextNode(tileData.dino[i].species);
-    heading.appendChild(species);
-    gridItem.appendChild(heading);
-    let fact = document.createTextNode(` ${tileData.dino[i].displayFact()}`);
-    para.appendChild(fact);
-    para.appendChild(lineBreak);
-
-    gridItem.appendChild(para);
-    // let height = document.createTextNode(`Height: ${tileData.dino[i].height}`);
-    // para.appendChild(height);
-    gridItem.appendChild(para);
-
-    image.src = `${tileData.dino[i].image}`;
-    gridItem.appendChild(image);
-    // Add tiles to DOM
-    fragment.appendChild(gridItem)
-    grid.appendChild(fragment);
-
-    // append human tile in the middle of grid
+      // append human tile in the middle of grid
+    }
   }
-  }
-
 }
 
 //get input data form and store it an object
